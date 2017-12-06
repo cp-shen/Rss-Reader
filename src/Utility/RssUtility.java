@@ -9,15 +9,21 @@ import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 
 import java.io.*;
+import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class RssUtility{
 
-    public static ObservableList<Element> parseRss(String xmlSource)throws IOException, JDOMException{
+    public static ObservableList<Element> parseFeed(Feed feed)throws IOException, JDOMException{
         SAXBuilder saxBuilder = new SAXBuilder();
-        Document jdomDoc = saxBuilder.build(xmlSource);
+        Document jdomDoc = saxBuilder.build(feed.getUri());
         Element rss = jdomDoc.getRootElement();
         Element channel = rss.getChild("channel");
+
+        feed.setName(channel.getChild("title").getValue() + " " + channel.getChild("link").getValue());
+
         List<Element> items = channel.getChildren("item");
         return FXCollections.observableArrayList(items);
     }
@@ -54,6 +60,21 @@ public class RssUtility{
             }
         }catch(IOException ex){
             ex.printStackTrace();
+        }
+    }
+
+    public static void exportXML(Feed feed)throws IOException{
+        URL source = new URL(feed.getUri());
+        File copy = new File(feed.getName().split(" ")[0]+
+                "-" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("uuuu-MM-dd-kk-mm-ss")) + ".xml");
+
+        if(copy.createNewFile()){
+            InputStream in = source.openStream();
+            FileOutputStream out = new FileOutputStream(copy);
+            int temp;
+            while( (temp = in.read()) != -1){
+                out.write(temp);
+            }
         }
     }
 }

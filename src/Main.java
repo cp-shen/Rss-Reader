@@ -24,8 +24,9 @@ public class Main extends Application{
             MainView mainView = fxmlLoader.getController();
             mainView.setPrimaryStage(primaryStage);
 
-//            mainView.setFeeds(RssUtility.loadFeeds());
+            mainView.setFeeds(RssUtility.loadFeeds("Feeds"));
 
+            primaryStage.setTitle("RSS Reader By BJTU16301130");
             primaryStage.show();
         }catch(IOException ex){
             ex.printStackTrace();

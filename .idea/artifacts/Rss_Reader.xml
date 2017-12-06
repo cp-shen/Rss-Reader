@@ -1,0 +1,21 @@
+<component name="ArtifactManager">
+  <artifact type="javafx" name="Rss-Reader">
+    <output-path>$PROJECT_DIR$/out/artifacts/Rss_Reader</output-path>
+    <properties id="javafx-properties">
+      <options>
+        <option name="appClass" value="Main" />
+        <option name="description" value="" />
+        <option name="htmlPlaceholderId" value="" />
+        <option name="title" value="" />
+        <option name="vendor" value="" />
+        <option name="version" value="" />
+      </options>
+    </properties>
+    <root id="root">
+      <element id="archive" name="Rss_Reader.jar">
+        <element id="module-output" name="Rss-Reader" />
+        <element id="library" level="project" name="jdom-2.0" />
+      </element>
+    </root>
+  </artifact>
+</component>
